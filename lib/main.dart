@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './screens/getting_started_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './screens/login_screen.dart';
+import './screens/signup_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,6 +24,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: GettingStartedScreen(),
+      routes: {
+        LoginScreen.routeName: (ctx) => LoginScreen(),
+        SignupScreen.routeName: (ctx) => SignupScreen(),
+      },
     );
   }
 }

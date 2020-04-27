@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   cloud_firestore: ^0.13.0+1
+  firebase_auth: ^0.16.0
 
 dev_dependencies:
   flutter_native_splash: ^0.1.9
@@ -53,6 +54,7 @@ flutter:
   - assets/images/image4.jpg
   - assets/images/image5.jpg
   - assets/images/persona.jpg
+  - assets/images/splash.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
