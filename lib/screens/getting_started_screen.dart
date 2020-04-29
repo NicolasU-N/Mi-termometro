@@ -5,9 +5,9 @@ import 'package:mi_termometro/model/slide.dart';
 import '../widgets/slide_item.dart';
 import '../model/slide.dart';
 
+import 'package:mi_termometro/screens/HomeMain/userscreen.dart';
+
 import '../widgets/slide_dots.dart';
-import '../screens/login_screen.dart';
-import '../screens/signup_screen.dart';
 
 class GettingStartedScreen extends StatefulWidget {
   @override
@@ -97,7 +97,7 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
                 children: <Widget>[
                   FlatButton(
                     child: Text(
-                      'Registrate',
+                      'Comenzar',
                       style: TextStyle(fontSize: 24),
                     ),
                     shape: RoundedRectangleBorder(
@@ -107,29 +107,8 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      Navigator.of(context).pushNamed(SignupScreen.routeName);
+                      UserScreen(); //REDIRECCIÓN PANTALLA DE USUARIO
                     },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '¿Ya tienes cuenta?',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      FlatButton(
-                        child: Text(
-                          'Ingresar',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
-                        },
-                      ),
-                    ],
                   ),
                 ],
               )

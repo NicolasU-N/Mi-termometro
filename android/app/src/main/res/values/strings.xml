@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Mi Termometro</string>
+  <string name="facebook_app_id">628912507660876</string>
+  <string name="fb_login_protocol_scheme">fb628912507660876</string>
+</resources>
