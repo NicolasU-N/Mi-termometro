@@ -23,10 +23,10 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
         _useData['birth_year'] = prefs.get('birth_year');
         _useData['birth_month'] = prefs.get('birth_month');
         _useData['birth_day'] = prefs.get('birth_day');
-        _useData['image0'] = prefs.get('image0');
-        _useData['image1'] = prefs.get('image1');
-        _useData['image2'] = prefs.get('image2');
-        _useData['image3'] = prefs.get('image3');
+        //_useData['image0'] = prefs.get('image0');
+        //_useData['image1'] = prefs.get('image1');
+        //_useData['image2'] = prefs.get('image2');
+        //_useData['image3'] = prefs.get('image3');
         _useData['age'] = calculateAge(prefs.get('birth_year'),
             prefs.get('birth_month'), prefs.get('birth_day'));
         _fetchingData = false;
@@ -103,10 +103,6 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   Widget textSection() {
     return Container(
       padding: const EdgeInsets.only(left: 32, right: 32),
-      child: Text(
-        _useData['intro'],
-        softWrap: true,
-      ),
     );
   }
 
@@ -138,22 +134,16 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
             ? CircularProgressIndicator()
             : ListView(
                 children: [
-                  _useData['image0'] == ''
-                      ? Container(
-                          height: 240,
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 160,
-                            color: Colors.grey,
-                          ),
-                        )
-                      : Image.network(
-                          _useData['image0'],
-                          height: 240,
-                          fit: BoxFit.cover,
-                        ),
+                  Container(
+                    height: 240,
+                    child: Icon(
+                      Icons.broken_image,
+                      size: 160,
+                      color: Colors.grey,
+                    ),
+                  ),
                   titleSection(),
-                  textSection(),
+                  //textSection(),
                   _deleteUser()
                 ],
               ),

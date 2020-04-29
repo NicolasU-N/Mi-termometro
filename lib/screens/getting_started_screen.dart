@@ -107,7 +107,10 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      UserScreen(); //REDIRECCIÓN PANTALLA DE USUARIO
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserScreen()),
+                      ); //REDIRECCIÓN PANTALLA DE USUARIO
                     },
                   ),
                 ],

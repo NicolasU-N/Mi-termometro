@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mi_termometro/screens/getting_started_screen.dart';
 
 class SignUp extends StatefulWidget {
   SignUp(this.parentAction);
@@ -197,20 +198,21 @@ class _SignUp extends State<SignUp> {
           await prefs.setString('gender', documents[0]['gender']);
           await prefs.setInt('age', documents[0]['age']);
           await prefs.setString('blood', documents[0]['blood']);
-          await prefs.setString('image0', documents[0]['image0']);
-          await prefs.setString('image1', documents[0]['image1']);
-          await prefs.setString('image2', documents[0]['image2']);
-          await prefs.setString('image3', documents[0]['image3']);
+          //await prefs.setString('image0', documents[0]['image0']);
+          //await prefs.setString('image1', documents[0]['image1']);
+          // await prefs.setString('image2', documents[0]['image2']);
+          // await prefs.setString('image3', documents[0]['image3']);
           await prefs.setInt('birth_year', documents[0]['birth_year']);
           await prefs.setInt('birth_month', documents[0]['birth_month']);
           await prefs.setInt('birth_day', documents[0]['birth_day']);
-          await prefs.setString('intro', documents[0]['intro']);
+          //await prefs.setString('intro', documents[0]['intro']);
           await prefs.setString('createdAt', documents[0]['createdAt']);
           await prefs.setBool('isLogin', true);
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => UserScreen()),
+            MaterialPageRoute(
+                builder: (context) => GettingStartedScreen()), //UserScreen()
           );
         }
         widget.parentAction(false);

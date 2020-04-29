@@ -6,6 +6,7 @@ import 'package:mi_termometro/screens/HomeMain/userscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 import 'dart:io';
 
 class SignUpMain extends StatefulWidget {
@@ -414,18 +415,26 @@ class _SignUpWithMail extends State<SignUpMain> {
             'name': _nameTextController.text,
             'cedula': _cedulaController.text,
             'gender': _userDataMap['gender'],
-            'age': _userDataMap['age'],
-            'image0': _imageStringList[0],
-            'image1': _imageStringList[1],
-            'image2': _imageStringList[2],
-            'image3': _imageStringList[3],
+            'age': calculateAge(
+                _userDataMap['birth_year'],
+                _userDataMap['birth_month'],
+                _userDataMap['birth_day']), //_userDataMap['age'],
+            //'image0': _imageStringList[0],
+            //'image1': _imageStringList[1],
+            //'image2': _imageStringList[2],
+            //'image3': _imageStringList[3],
             'birth_year': _userDataMap['birth_year'],
             'birth_month': _userDataMap['birth_month'],
             'birth_day': _userDataMap['birth_day'],
-            'intro': _introduceTextController.text,
+            //'intro': _introduceTextController.text,
             'id': firebaseUser.uid,
-            'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-            'chattingWith': null
+            'createdAt': DateFormat("dd-MM-yyyy hh:mm:ss")
+                .format(DateTime.now())
+                .toString(),
+            'febricula': null,
+            'temp': null,
+            'ubicacion': null
+            //'chattingWith': null
           });
 
           // Write data to local
@@ -436,7 +445,11 @@ class _SignUpWithMail extends State<SignUpMain> {
           await prefs.setString('name', _nameTextController.text);
           await prefs.setString('cedula', _cedulaController.text);
           await prefs.setString('gender', _userDataMap['gender']);
-          await prefs.setInt('age', _userDataMap['age']);
+          await prefs.setInt(
+            'age',
+            calculateAge(_userDataMap['birth_year'],
+                _userDataMap['birth_month'], _userDataMap['birth_day']),
+          );
           await prefs.setString('image0', _imageStringList[0]);
           await prefs.setString('image1', _imageStringList[1]);
           await prefs.setString('image2', _imageStringList[2]);
@@ -446,7 +459,10 @@ class _SignUpWithMail extends State<SignUpMain> {
           await prefs.setInt('birth_day', _userDataMap['birth_day']);
           await prefs.setString('intro', _introduceTextController.text);
           await prefs.setString(
-              'createdAt', DateTime.now().millisecondsSinceEpoch.toString());
+              'createdAt',
+              DateFormat("dd-MM-yyyy hh:mm:ss")
+                  .format(DateTime.now())
+                  .toString());
         } else {
           // Write Firebase data to local
           await prefs.setString('id', documents[0]['id']);
@@ -455,7 +471,10 @@ class _SignUpWithMail extends State<SignUpMain> {
           await prefs.setString('name', documents[0]['name']);
           await prefs.setString('cedula', documents[0]['cedula']);
           await prefs.setString('gender', documents[0]['gender']);
-          await prefs.setInt('age', documents[0]['age']);
+          await prefs.setInt(
+              'age',
+              calculateAge(_userDataMap['birth_year'],
+                  _userDataMap['birth_month'], _userDataMap['birth_day']));
           await prefs.setString('image0', documents[0]['image0']);
           await prefs.setString('image1', documents[0]['image1']);
           await prefs.setString('image2', documents[0]['image2']);
@@ -464,7 +483,11 @@ class _SignUpWithMail extends State<SignUpMain> {
           await prefs.setInt('birth_month', documents[0]['birth_month']);
           await prefs.setInt('birth_day', documents[0]['birth_day']);
           await prefs.setString('intro', documents[0]['intro']);
-          await prefs.setString('createdAt', documents[0]['createdAt']);
+          await prefs.setString(
+              'createdAt',
+              DateFormat("dd-MM-yyyy hh:mm:ss")
+                  .format(DateTime.now())
+                  .toString());
         }
         setState(() {
           isLoading = false;
@@ -479,7 +502,7 @@ class _SignUpWithMail extends State<SignUpMain> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => UserScreen(),
+          builder: (context) => GettingStartedScreen(),
         ), //UserScreen()GettingStartedScreen()
       );
     } catch (e) {
@@ -492,6 +515,23 @@ class _SignUpWithMail extends State<SignUpMain> {
         isLoading = false;
       });
     }
+  }
+
+  calculateAge(int year, int month, int day) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - year;
+    int month1 = currentDate.month;
+    int month2 = month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age;
   }
 
   showDialogWithText(String textMessage) {

@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return !_isLogin
         ? _signInWidget()
-        : UserScreen(); //UserScreen()GettingStartedScreen()
+        : GettingStartedScreen(); //UserScreen()GettingStartedScreen()
   }
 
   Widget _signInWidget() {
