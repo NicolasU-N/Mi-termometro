@@ -21,7 +21,7 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    Timer.periodic(Duration(seconds: 20), (Timer timer) {
       if (_currentPage < 4) {
         _currentPage++;
       } else {

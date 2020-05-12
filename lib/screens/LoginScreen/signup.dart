@@ -33,7 +33,7 @@ class _SignUp extends State<SignUp> {
             child: Row(children: <Widget>[
               Expanded(child: Divider(thickness: 2)),
               Text(
-                " Regitrese con ",
+                " Ingresa con ",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
