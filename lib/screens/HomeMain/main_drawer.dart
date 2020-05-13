@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mi_termometro/screens/getting_started_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
