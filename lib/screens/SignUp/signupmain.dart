@@ -431,9 +431,7 @@ class _SignUpWithMail extends State<SignUpMain> {
             'createdAt': DateFormat("dd-MM-yyyy hh:mm:ss")
                 .format(DateTime.now())
                 .toString(),
-            'febricula': null,
-            'temp': null,
-            'ubicacion': null
+            'mediciones': null
             //'chattingWith': null
           });
 

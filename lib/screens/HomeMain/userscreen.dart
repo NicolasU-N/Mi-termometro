@@ -3,6 +3,7 @@ import 'dart:convert' show utf8;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:mi_termometro/screens/HomeMain/main_drawer.dart';
 
@@ -199,14 +200,6 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                 double.parse(cutrrent_value.split(",")[0]);
                             _tempCorl =
                                 double.parse(cutrrent_value.split(",")[1]);
-
-                            if (_tempCorl >= 36 && _tempCorl <= 37.5) {
-                              //print("ALERTA! Presencia de fiebre");
-                            }
-
-                            if (_tempCorl > 37.5 && _tempCorl <= 39) {
-                              // print("ALERTA! Presencia de fFEBRICULA");
-                            }
                           }
 
                           return Center(
@@ -251,7 +244,20 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                                 color: Colors.white)),
                                         onPressed: () async {
                                           estado = false;
-                                          /*
+                                          bool fiebre = false;
+                                          bool febricula = false;
+                                          if (_tempCorl >= 36 &&
+                                              _tempCorl <= 37.5) {
+                                            fiebre = true;
+                                            //print("ALERTA! Presencia de fiebre");
+                                          }
+
+                                          if (_tempCorl > 37.5 &&
+                                              _tempCorl <= 39) {
+                                            febricula = true;
+                                            // print("ALERTA! Presencia de fFEBRICULA");
+                                          }
+
                                           var firebaseUser = await FirebaseAuth
                                               .instance
                                               .currentUser();
@@ -260,13 +266,24 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                               .collection("users")
                                               .document(firebaseUser.uid)
                                               .updateData({
-                                            "age": 60,
-                                            "familyName": "Haddad",
-                                            "address.street": "street 50",
-                                            "address.country": "USA"
+                                            "mediciones":
+                                                FieldValue.arrayUnion([
+                                              {
+                                                "creacion": DateFormat(
+                                                        "dd-MM-yyyy hh:mm:ss")
+                                                    .format(DateTime.now())
+                                                    .toString(),
+                                                "febricula": febricula,
+                                                "fiebre": fiebre,
+                                                "Temperatura corporal":
+                                                    _tempCorl,
+                                                "Temperatura ambiente":
+                                                    _tempAmbl,
+                                              }
+                                            ]),
                                           }).then((_) {
                                             print("Success!");
-                                          }); */
+                                          });
                                         },
                                       ),
                                     ]),
