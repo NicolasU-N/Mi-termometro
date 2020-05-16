@@ -3,6 +3,7 @@ import 'dart:convert' show utf8;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
 import 'package:mi_termometro/screens/HomeMain/main_drawer.dart';
@@ -19,13 +20,13 @@ class UserScreen extends StatefulWidget {
 class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   final firestoreInstance = Firestore.instance;
 
+
+
   final SERVICE_UUID =
       "d39d2f80-94b3-11ea-bb37-0242ac130002"; // UART service UUID
   final CHARACTERISTIC_UUID = "d39d31e2-94b3-11ea-bb37-0242ac130002";
   final TARGET_DEVICE_NAME = "Mi termometro";
 
-  String _tempAmb = "?";
-  String _tempCor = "?";
   bool isReady = false;
 
   FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -38,8 +39,8 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   Stream<List<int>> stream;
   double _tempAmbl = 0;
   double _tempCorl = 0;
-
   bool estado = false;
+  String ubicacion = "?";
 
   @override
   void initState() {
@@ -122,6 +123,23 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
 
   String _dataParser(List<int> dataFromDevice) {
     return utf8.decode(dataFromDevice);
+  }
+
+  //OBTENER GEOLOCALIZACIÓN
+  Future<void> _getUbicacionActual() async {
+    //objeto geolocator que obtendra la ubicaciionactual
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) async {
+      //imprimir la posicion actual en log
+      print(position);
+      ubicacion = position.toString();
+      //crear controller google map
+    }).catchError((e) {
+      print(e);
+    });
   }
 
   @override
@@ -222,6 +240,7 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                                   fontSize: 18,
                                                   color: Colors.white)),
                                           onPressed: () {
+                                            _getUbicacionActual(); // Obtenemos ubicación actual
                                             estado = true;
                                           }),
                                       Text("\n"),
@@ -243,6 +262,7 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                                 fontSize: 18,
                                                 color: Colors.white)),
                                         onPressed: () async {
+
                                           estado = false;
                                           bool fiebre = false;
                                           bool febricula = false;
@@ -275,10 +295,11 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                                     .toString(),
                                                 "febricula": febricula,
                                                 "fiebre": fiebre,
-                                                "Temperatura corporal":
+                                                "temperatura corporal":
                                                     _tempCorl,
-                                                "Temperatura ambiente":
+                                                "temperatura ambiente":
                                                     _tempAmbl,
+                                                "ubicacion": ubicacion
                                               }
                                             ]),
                                           }).then((_) {
