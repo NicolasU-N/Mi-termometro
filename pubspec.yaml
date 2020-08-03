@@ -1,5 +1,5 @@
 name: mi_termometro
-description: A new Flutter project.
+description: Termometro para monitoreo de temperatura con bluetooth.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -38,9 +38,19 @@ dependencies:
   intl: ^0.16.1 #date
 
 dev_dependencies:
+  flutter_launcher_name: ^0.0.1
+  flutter_launcher_icons: ^0.7.3
   flutter_native_splash: ^0.1.9
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.png"
+
+flutter_launcher_name:
+  name: "Termometro"
 
 flutter_native_splash:
   image: assets/images/splash.png

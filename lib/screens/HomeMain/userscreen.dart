@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert' show utf8;
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-
+import 'package:mi_termometro/model/formu.dart';
+import 'package:mi_termometro/screens/ConnectFail/FailBT.dart';
+import 'package:mi_termometro/screens/Form/contacInfo.dart';
 import 'package:mi_termometro/screens/HomeMain/main_drawer.dart';
-
 import 'package:flutter_blue/flutter_blue.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserScreen extends StatefulWidget {
@@ -19,8 +18,6 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   final firestoreInstance = Firestore.instance;
-
-
 
   final SERVICE_UUID =
       "d39d2f80-94b3-11ea-bb37-0242ac130002"; // UART service UUID
@@ -41,6 +38,9 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   double _tempCorl = 0;
   bool estado = false;
   String ubicacion = "?";
+
+  bool fiebre = false;
+  bool febricula = false;
 
   @override
   void initState() {
@@ -144,6 +144,8 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final formu =
+        new Formu(null, null, null, null, null, null, null, null, null, null);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -152,60 +154,13 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
         drawer: MainDrawer(),
         body: Container(
             child: isReady == false
-                ? Center(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(
-                          Icons.bluetooth_disabled,
-                          size: 200.0,
-                          color: Colors.blue[300],
-                        ),
-                        Icon(
-                          Icons.location_off,
-                          size: 200.0,
-                          color: Colors.blue[300],
-                        ),
-                        Text(
-                          'Por favor encienda el adaptador bluetooth y su ubicación. Apague y vuelva a encender el termómetro',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .subhead
-                              .copyWith(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  )
+                ? FailBT()
                 : Container(
                     child: StreamBuilder<List<int>>(
                       stream: stream,
                       builder: (BuildContext context,
                           AsyncSnapshot<List<int>> snapshot) {
-                        if (snapshot.hasError)
-                          return Center(
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.bluetooth_disabled,
-                                  size: 200.0,
-                                  color: Colors.blue[300],
-                                ),
-                                Icon(
-                                  Icons.location_off,
-                                  size: 200.0,
-                                  color: Colors.blue[300],
-                                ),
-                                Text(
-                                  'Por favor encienda el adaptador bluetooth y su ubicación. Apague y vuelva a encender el termómetro',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .subhead
-                                      .copyWith(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          );
+                        if (snapshot.hasError) return FailBT();
 
                         if (snapshot.connectionState ==
                             ConnectionState.active) {
@@ -245,10 +200,10 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                           }),
                                       Text("\n"),
                                       Text(
-                                          "TEMPERATURA AMBIENTE  ${_tempAmbl} °C",
+                                          "TEMPERATURA AMBIENTE  $_tempAmbl °C",
                                           style: TextStyle(fontSize: 20)),
                                       Text(
-                                          "TEMPERATURA CORPORAL   ${_tempCorl} °C",
+                                          "TEMPERATURA CORPORAL   $_tempCorl °C",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20)),
@@ -262,10 +217,8 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                                 fontSize: 18,
                                                 color: Colors.white)),
                                         onPressed: () async {
-
                                           estado = false;
-                                          bool fiebre = false;
-                                          bool febricula = false;
+
                                           if (_tempCorl >= 36 &&
                                               _tempCorl <= 37.5) {
                                             fiebre = true;
@@ -305,6 +258,14 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                                           }).then((_) {
                                             print("Success!");
                                           });
+
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ContactInfo(
+                                                        formu: formu,
+                                                      )));
                                         },
                                       ),
                                     ]),
@@ -313,30 +274,7 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
                           ));
                         } else {
                           //IMPORTANTE
-                          return Center(
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.bluetooth_disabled,
-                                  size: 200.0,
-                                  color: Colors.blue[300],
-                                ),
-                                Icon(
-                                  Icons.location_off,
-                                  size: 200.0,
-                                  color: Colors.blue[300],
-                                ),
-                                Text(
-                                  'Por favor encienda el adaptador bluetooth y su ubicación. Apague y vuelva a encender el termómetro',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .subhead
-                                      .copyWith(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          );
+                          return FailBT();
                         }
                       },
                     ),

@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mi_termometro/model/slide.dart';
 import '../widgets/slide_item.dart';
 import '../model/slide.dart';
-
 import 'package:mi_termometro/screens/HomeMain/userscreen.dart';
-
 import '../widgets/slide_dots.dart';
 
 class GettingStartedScreen extends StatefulWidget {

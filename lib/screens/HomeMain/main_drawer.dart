@@ -23,10 +23,6 @@ class _MainDrawer extends State<MainDrawer> with WidgetsBindingObserver {
         _useData['birth_year'] = prefs.get('birth_year');
         _useData['birth_month'] = prefs.get('birth_month');
         _useData['birth_day'] = prefs.get('birth_day');
-        //_useData['image0'] = prefs.get('image0');
-        //_useData['image1'] = prefs.get('image1');
-        //_useData['image2'] = prefs.get('image2');
-        //_useData['image3'] = prefs.get('image3');
         _useData['age'] = calculateAge(prefs.get('birth_year'),
             prefs.get('birth_month'), prefs.get('birth_day'));
         _fetchingData = false;

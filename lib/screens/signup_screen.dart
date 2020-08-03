@@ -22,9 +22,7 @@ enum GenderEnum { man, woman }
 
 class _SignUpForm extends State<SignUpForm>
     with AutomaticKeepAliveClientMixin<SignUpForm> {
-  GenderEnum _userGender = GenderEnum.man;
   String _selectDateString = 'Select your birthday';
-  bool _agreedToTerm = false;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(

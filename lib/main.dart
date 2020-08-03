@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mi_termometro/screens/getting_started_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:mi_termometro/screens/LoginScreen/mainlogo.dart';
 import 'package:mi_termometro/screens/LoginScreen/signin.dart';
 import 'package:mi_termometro/screens/LoginScreen/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mi_termometro/screens/HomeMain/userscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -192,10 +192,6 @@ class _SignIn extends State<SignIn> {
           await prefs.setString('gender', documents[0]['gender']);
           await prefs.setInt('age', documents[0]['age']);
           await prefs.setString('blood', documents[0]['blood']);
-          await prefs.setString('image0', documents[0]['image0']);
-          await prefs.setString('image1', documents[0]['image1']);
-          await prefs.setString('image2', documents[0]['image2']);
-          await prefs.setString('image3', documents[0]['image3']);
           await prefs.setInt('birth_year', documents[0]['birth_year']);
           await prefs.setInt('birth_month', documents[0]['birth_month']);
           await prefs.setInt('birth_day', documents[0]['birth_day']);

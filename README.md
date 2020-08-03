@@ -1,6 +1,6 @@
-# mi_termometro
+# Mi termometro
 
-Aplicación móvil para monitorear la temperatura de una persona a través de un termómetro digital sin contacto.
+Aplicación móvil creada con flutter para monitorear la temperatura de una persona a través de un termómetro digital sin contacto.
 
 ## Getting Started
 

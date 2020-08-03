@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="mi_termometro"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Termometro"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -27,7 +27,7 @@
         </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-            <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
+            <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="Termometro" />
             <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
                 <intent-filter>
                  <action android:name="android.intent.action.VIEW" />
@@ -44,3 +44,4 @@
             android:value="2" />
     </application>
 </manifest>
+

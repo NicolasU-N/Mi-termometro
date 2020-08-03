@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mi_termometro/screens/SignUp/ChildViews/signupform.dart';
 import 'package:mi_termometro/screens/getting_started_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mi_termometro/screens/HomeMain/userscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
