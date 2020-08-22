@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mi_termometro/model/formu.dart';
+import 'package:mi_termometro/screens/Form/contacInfo.dart';
 import 'package:mi_termometro/screens/getting_started_screen.dart';
 
 import 'package:mi_termometro/screens/LoginScreen/mainlogo.dart';

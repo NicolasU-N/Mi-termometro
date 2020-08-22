@@ -10,6 +10,7 @@ import 'package:mi_termometro/screens/Form/contacInfo.dart';
 import 'package:mi_termometro/screens/HomeMain/main_drawer.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -42,10 +43,35 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
   bool fiebre = false;
   bool febricula = false;
 
+  bool _isConected = false;
+
+  _checkConected() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isConected = (prefs.get('isConected') ?? false);
+
+    setState(() {
+      _isConected = isConected;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    startScan();
+    _checkConected();
+    if (_isConected == false || connectionText == "Device Disconnected") {
+      startScan();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disconnectFromDevice();
+    setState(() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isConected', false);
+      connectionText = "Device Disconnected";
+    });
   }
 
   startScan() {
@@ -153,7 +179,7 @@ class _UserScreen extends State<UserScreen> with WidgetsBindingObserver {
         ),
         drawer: MainDrawer(),
         body: Container(
-            child: isReady == false
+            child: _isConected == false
                 ? FailBT()
                 : Container(
                     child: StreamBuilder<List<int>>(

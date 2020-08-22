@@ -447,10 +447,6 @@ class _SignUpWithMail extends State<SignUpMain> {
             calculateAge(_userDataMap['birth_year'],
                 _userDataMap['birth_month'], _userDataMap['birth_day']),
           );
-          await prefs.setString('image0', _imageStringList[0]);
-          await prefs.setString('image1', _imageStringList[1]);
-          await prefs.setString('image2', _imageStringList[2]);
-          await prefs.setString('image3', _imageStringList[3]);
           await prefs.setInt('birth_year', _userDataMap['birth_year']);
           await prefs.setInt('birth_month', _userDataMap['birth_month']);
           await prefs.setInt('birth_day', _userDataMap['birth_day']);
@@ -472,10 +468,6 @@ class _SignUpWithMail extends State<SignUpMain> {
               'age',
               calculateAge(_userDataMap['birth_year'],
                   _userDataMap['birth_month'], _userDataMap['birth_day']));
-          await prefs.setString('image0', documents[0]['image0']);
-          await prefs.setString('image1', documents[0]['image1']);
-          await prefs.setString('image2', documents[0]['image2']);
-          await prefs.setString('image3', documents[0]['image3']);
           await prefs.setInt('birth_year', documents[0]['birth_year']);
           await prefs.setInt('birth_month', documents[0]['birth_month']);
           await prefs.setInt('birth_day', documents[0]['birth_day']);
